@@ -10,6 +10,14 @@
       <router-link to="/login">Login</router-link>
       |
       <router-link to="/logout">Logout</router-link>
+      |
+      <router-link to="/movies">All Movies</router-link>
+      |
+      <router-link to="/movies/new">Create New Movie</router-link>
+      |
+      <router-link to="/movies/:id">See Movie Details</router-link>
+      |
+      <router-link to="/movies/:id/edit">Edit Movie</router-link>
     </div>
     <router-view />
   </div>
