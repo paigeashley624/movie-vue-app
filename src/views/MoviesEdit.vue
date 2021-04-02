@@ -1,6 +1,6 @@
 <template>
   <div class="movies-edit">
-    <form v-on:submit.prevent="updatemMovie(movie)">
+    <form v-on:submit.prevent="updateMovie(movie)">
       <h1>Edit Movie!</h1>
       <ul>
         <li class="text-danger" v-for="error in errors" v-bind:key="error">

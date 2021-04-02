@@ -28,7 +28,7 @@ export default {
     this.indexMovies();
   },
   methods: {
-    moviesIndex: function () {
+    indexMovies: function () {
       axios.get("/api/movies").then((response) => {
         this.movies = response.data;
         console.log("All Movies:", this.movies);

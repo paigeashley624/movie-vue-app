@@ -11,14 +11,14 @@
       Director:
       <input type="text" v-model="newMovieDirector" />
     </div>
-    <button v-on:click="createmovie()">Create Movie</button>
-    <h1>All movies</h1>
+    <button v-on:click="createMovie()">Create Movie</button>
+    <h1>All Movies</h1>
     <div>
       <div v-for="movie in movies" v-bind:key="movie.id">
         <h3>{{ movie.title }}</h3>
         <img v-bind:src="movie.image_url" v-bind:alt="movie.title" />
         <p>{{ movie.user }}</p>
-        <button v-on:click="showmovie(movie)">More Info!</button>
+        <button v-on:click="showMovie(movie)">More Info!</button>
       </div>
       <dialog id="movie-details">
         <form method="dialog">
@@ -55,15 +55,16 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data: function () {
     return {
-      movies: [],
+      movies: [], //storing multiple things here//
       newMovieTitle: "",
       newMovieYear: "",
       newMoviePlot: "",
       newMovieDirector: "",
-      currentMovie: {},
+      currentMovie: {}, //storing one thing here//
     };
   },
   created: function () {
@@ -76,7 +77,7 @@ export default {
         console.log("all movies:", this.movies);
       });
     },
-    createmovie: function () {
+    createMovie: function () {
       console.log("Creating a movie");
       var params = {
         title: this.newMovieTitle,
@@ -92,12 +93,12 @@ export default {
         })
         .catch((error) => console.log(error.response));
     },
-    showmovie: function (movie) {
+    showMovie: function (movie) {
       console.log(movie);
-      this.currentmovie = movie;
+      this.currentMovie = movie;
       document.querySelector("#movie-details").showModal();
     },
-    updatemovie: function (movie) {
+    updateMovie: function (movie) {
       var params = {
         title: movie.title,
         prep_time: movie.prep_time,
@@ -109,7 +110,7 @@ export default {
         console.log("Success", response.data);
       });
     },
-    destroymovie: function (movie) {
+    destroyMovie: function (movie) {
       axios.delete("/api/movies/" + movie.id).then((response) => {
         console.log("Success!", response.data);
         var index = this.movies.indexOf(movie);

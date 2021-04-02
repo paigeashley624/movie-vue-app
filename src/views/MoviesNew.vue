@@ -54,7 +54,7 @@ export default {
       axios
         .post("/api/movies", params)
         .then(() => {
-          this.router.push("/movies");
+          this.$router.push("/movies");
         })
         .catch((error) => console.log(error.response));
     },
