@@ -5,10 +5,14 @@
       <p>{{ movie.year }}</p>
       <p>{{ movie.plot }}</p>
       <p>{{ movie.director }}</p>
+      <p>{{ movie.english }}</p>
+      <p>{{ movie.image }}</p>
     </div>
-    <router-link v-bind:to="`/movies/${movie.id}/edit`">See more info</router-link>
-    <br />
-    <button v-on:click="destroyMovie(movie)">Destroy movie</button>
+    <div v-if="$parent.getUserId() == movie.user_id">
+      <router-link v-bind:to="`/movies/${movie.id}/edit`">See more info</router-link>
+      <br />
+      <button v-on:click="destroyMovie(movie)">Destroy movie</button>
+    </div>
   </div>
 </template>
 

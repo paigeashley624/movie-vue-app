@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div>
-      <h1>New movie</h1>
+      <h1>Add A New Movie</h1>
       Title:
       <input type="text" v-model="newMovieTitle" />
       Year:
@@ -10,13 +10,17 @@
       <input type="text" v-model="newMoviePlot" />
       Director:
       <input type="text" v-model="newMovieDirector" />
+      English:
+      <input type="text" v-model="newMovieEnglish" />
+      Image:
+      <input type="text" v-model="newMovieImage" />
     </div>
     <button v-on:click="createMovie()">Create Movie</button>
-    <h1>All Movies</h1>
+    <h1>Best in Theaters Now!!!</h1>
     <div>
       <div v-for="movie in movies" v-bind:key="movie.id">
         <h3>{{ movie.title }}</h3>
-        <img v-bind:src="movie.image_url" v-bind:alt="movie.title" />
+        <img v-bind:src="movie.image" v-bind:alt="movie.title" />
         <p>{{ movie.user }}</p>
         <button v-on:click="showMovie(movie)">More Info!</button>
       </div>
@@ -28,24 +32,25 @@
             <input type="text" v-model="currentMovie.title" />
           </p>
           <p>
-            PrepTime:
-            <input type="text" v-model="currentMovie.prep_time" />
+            Year:
+            <input type="text" v-model="currentMovie.year" />
           </p>
           <p>
-            Ingredients:
-            <input type="text" v-model="currentMovie.ingredients" />
+            Plot:
+            <input type="text" v-model="currentMovie.plot" />
           </p>
           <p>
-            Directions:
-            <input type="text" v-model="currentMovie.directions" />
+            Director:
+            <input type="text" v-model="currentMovie.director" />
           </p>
           <p>
-            ImageUrl:
-            <input type="text" v-model="currentMovie.image_url" />
+            English:
+            <input type="text" v-model="currentMovie.english" />
           </p>
-          <button v-on:click="updatemovie(currentMovie)">Update</button>
-          <button v-on:click="destroymovie(currentMovie)">Destroy</button>
           <button>Close</button>
+          <button v-on:click="updateMovie(currentMovie)">Update this Movie</button>
+          <button v-on:click="destroyMovie(currentMovie)">Delete this Movie</button>
+          <!-- <button>Close</button> -->
         </form>
       </dialog>
     </div>
@@ -64,6 +69,8 @@ export default {
       newMovieYear: "",
       newMoviePlot: "",
       newMovieDirector: "",
+      newMovieEnglish: "",
+      newMovieImage: "",
       currentMovie: {}, //storing one thing here//
     };
   },
@@ -81,9 +88,11 @@ export default {
       console.log("Creating a movie");
       var params = {
         title: this.newMovieTitle,
-        prep_time: this.newMovieYear,
-        ingredients: this.newMoviePlot,
-        directions: this.newMovieDirector,
+        year: this.newMovieYear,
+        plot: this.newMoviePlot,
+        director: this.newMovieDirector,
+        english: this.newMovieEnglish,
+        image: this.newMovieImage,
       };
       axios
         .post("/api/movies", params)
@@ -97,14 +106,16 @@ export default {
       console.log(movie);
       this.currentMovie = movie;
       document.querySelector("#movie-details").showModal();
+      console.log(movie);
     },
     updateMovie: function (movie) {
       var params = {
         title: movie.title,
-        prep_time: movie.prep_time,
-        ingredients: movie.ingredients,
-        directions: movie.directions,
-        image_url: movie.image_url,
+        year: movie.year,
+        plot: movie.plot,
+        director: movie.director,
+        english: movie.english,
+        image: movie.image,
       };
       axios.patch("/api/movies/" + movie.id, params).then((response) => {
         console.log("Success", response.data);

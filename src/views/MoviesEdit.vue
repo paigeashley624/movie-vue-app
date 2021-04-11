@@ -30,6 +30,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data: function () {
     return {
@@ -44,13 +45,15 @@ export default {
     });
   },
   methods: {
-    updatemovie: function (movie) {
+    updateMovie: function (movie) {
       console.log("Updating a movie!");
       var params = {
         title: movie.title,
         year: movie.year,
         plot: movie.plot,
         director: movie.director,
+        english: movie.english,
+        image: movie.image,
       };
       axios
         .patch("/api/movies/" + this.$route.params.id, params)

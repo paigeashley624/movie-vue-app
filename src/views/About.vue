@@ -1,13 +1,46 @@
 <template>
   <div class="about">
-    <h1>This is an about what's wrong page</h1>
+    <h1>About</h1>
     <h2>
       <ul>
-        <li>Home page will not show all movies. Localhost:3000/api/movies/:id works in insomnia</li>
-        <li>Logout routes back to the home page</li>
-        <li>All movies shows no movies. Fun fun.</li>
-        <li>See Movie Details - not even sure what's going on over there.</li>
+        <li>Need help adding the nav bar and jumbo tron</li>
+        <li></li>
       </ul>
     </h2>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+
+export default {
+  data: function () {
+    return {
+      movies: [], //storing multiple things here//
+      newMovieTitle: "",
+      newMovieYear: "",
+      newMoviePlot: "",
+      newMovieDirector: "",
+      currentMovie: {}, //storing one thing here//
+    };
+  },
+  methods: {
+    createMovie: function () {
+      console.log("Creating a movie");
+      var params = {
+        title: this.newMovieTitle,
+        prep_time: this.newMovieYear,
+        ingredients: this.newMoviePlot,
+        directions: this.newMovieDirector,
+      };
+      axios
+        .post("/api/movies", params)
+        .then((response) => {
+          console.log(response.data);
+          this.movies.push(response.data);
+        })
+        .catch((error) => console.log(error.response));
+    },
+  },
+};
+</script>
